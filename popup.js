@@ -34,7 +34,7 @@ function checkEmail(event) {
     }
   }
 
-  fetch(url, options) 
+  fetch(safeBrowseURL, options) 
     .then (res => {
       return res.json();
     })
