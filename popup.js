@@ -1,48 +1,69 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
 'use strict';
 
-//let x = document.documentElement.querySelectorAll("a");
-let x = document.documentElement.innerHTML;
-console.log(x);
+const safeBrowseKey = 'AIzaSyB1G2inB2zkX3aDImnneg23xEoFprqSx9w';
+const safeBrowseURL = 'https://safebrowsing.googleapis.com/v4/threatMatches:find?key=AIzaSyB1G2inB2zkX3aDImnneg23xEoFprqSx9w';
 
+console.log("MIMIIIII");
 
+function checkEmail(event) {
 
+  const options = {
+    method : 'POST',
+    headers : {
+      'Content-Type' : 'application/json'},
+    body : {
 
-/*var myarray = []
-for (let i = 0; i<x.length; i++){
-var nametext = x[i].textContent;
-var cleantext = nametext.replace(/\s+/g, ' ').trim();
-var cleanlink = x[i].href;
-myarray.push([cleantext,cleanlink]);
-};
-function make_table() {
-    var table = '<table><thead><th>Name</th><th>Links</th></thead><tbody>';
-   for (var i=0; i<myarray.length; i++) {
-            table += '<tr><td>'+ myarray[i][0] + '</td><td>'+myarray[i][1]+'</td></tr>';
-    };
- 
-    var w = window.open("");
-w.document.write(table); 
+    }
+
+  }
+
+  const requestBody = {
+    "client": {
+      "clientId":      "Efish",
+      "clientVersion": "1"
+    },
+    "threatInfo": {
+      "threatTypes":      ["MALWARE", "SOCIAL_ENGINEERING"],
+      "platformTypes":    ["WINDOWS"],
+      "threatEntryTypes": ["URL"],
+      "threatEntries": [
+        {"url": "http://www.urltocheck1.org/"},
+        {"url": "http://www.urltocheck2.org/"},
+        {"url": "http://www.urltocheck3.com/"}
+      ]
+    }
+  }
+
+  fetch(url, options) 
+    .then (res => {
+      return res.json();
+    })
+    then (json => {
+      console.log(json)
+    })
+
+  
+
 }
-make_table()*/
 
 
-/*let changeColor = document.getElementById('changeColor');
+document.getElementById('check_email').addEventListener('click', checkEmail);
 
-chrome.storage.sync.get('color', function(data) {
-  changeColor.style.backgroundColor = data.color;
-  changeColor.setAttribute('value', data.color);
-});
+/*fetch('./api/some.json')
+  .then(
+    function(response) {
+      if (response.status !== 200) {
+        console.log('Looks like there was a problem. Status Code: ' +
+          response.status);
+        return;
+      }
 
-changeColor.onclick = function(element) {
-  let color = element.target.value;
-  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-    chrome.tabs.executeScript(
-        tabs[0].id,
-        {code: 'document.body.style.backgroundColor = "' + color + '";'});
-  });
-}; 
-*/
+      // Examine the text in the response
+      response.json().then(function(data) {
+        console.log(data);
+      });
+    }
+  )
+  .catch(function(err) {
+    console.log('Fetch Error :-S', err);
+  });*/
