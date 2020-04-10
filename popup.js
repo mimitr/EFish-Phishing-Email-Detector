@@ -3,9 +3,11 @@
 const safeBrowseKey = 'AIzaSyB1G2inB2zkX3aDImnneg23xEoFprqSx9w';
 const safeBrowseURL = 'https://safebrowsing.googleapis.com/v4/threatMatches:find?key=AIzaSyB1G2inB2zkX3aDImnneg23xEoFprqSx9w';
 
-console.log("MIMIIIII");
+
 
 function checkEmail(event) {
+
+  console.log(document.getElementsByTagName('button'));
 
   const options = {
     method : 'POST',
@@ -38,16 +40,22 @@ function checkEmail(event) {
     .then (res => {
       return res.json();
     })
-    then (json => {
+    .then (json => {
       console.log(json)
     })
 
-  
-
 }
 
-
 document.getElementById('check_email').addEventListener('click', checkEmail);
+
+chrome.runtime.onMessage.addListener(
+  function(request, sender, sendResponse) {
+      console.log("background.js got a message")
+      console.log(request);
+      console.log(sender);
+      sendResponse("bar");
+  }
+);
 
 /*fetch('./api/some.json')
   .then(

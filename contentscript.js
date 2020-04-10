@@ -4,7 +4,14 @@ It can read and modify the DOM (Document Object Model) of web pages.
 This is going to be the most handy type of script when developing my extension as it will need to read through the DOM looking for links and potentially modifying them!
 */
 
-let allImages = document.getElementsByTagName(‘a’);
+let allLinks = document.getElementsByTagName('a');
+
+chrome.runtime.sendMessage(
+    "foo",
+    function (response) {
+        console.log(response);
+    }
+);
 
 /*let findURLs = function() {
     let found;
