@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+        #analysis_module{
+          height: 1200px;
+          width: 400px;
+          outline: none;
+          font-size: 20px;
+          border-style: solid;
+          border-color: #78a2f5;
+          margin: 10px;
+          padding: 10px;
+        }
+
+        #phishing_info{
+          background-color: #f7f0d7 ;
+        }
+
+        #links_checks{
+          background-color:  #e6ecf7 ;
+        }
+
+        #spell_checks{
+          background-color: #d7e2f7 ;
+        }
+        
+      </style>
+  </head>
+  <body>
+    <div id="analysis_module">
+        <h2 style='color: #0243ab'>
+            EFish email analysis is:
+        </h2>
+        
+        <div id="links_checks">
+
+        </div>
+        <div id="spell_checks">
+    
+        </div>
+        <div id="phishing_info">
+          <h3> What is Phishing? </h3>
+          <p>
+            <b>Phishing -</b> is a scam that uses email to trick recipients into clicking on a link, opening attachment or otherwise taking action that produces harmful results.
+          </p>
+          <h3>
+            So, is this a phishing email?
+          </h3>
+          <p>
+            <b>Top signs:</b>
+          </p>
+          <p>
+            1. If the link attached in the email is marked as threatening, then it is definitely a phishing email. 
+            However, they might be new phishing links that our database have not been updated on yet, so do not entirely rely this.
+            <br>
+            2. If there are spelling and grammar errors
+            <br>
+            3. If the content of the email is of <b>unusual or non-standard request</b>
+            <br>
+            4. Check the sender's email reputation on <a href="https://emailrep.io/"> EmailRep </a>
+            <br>
+            
+          </p>
+            
+
+        </div>
+    </div>
+    
+
+    <script src="email_analysis.js"></script>
+  </body>
+</html>

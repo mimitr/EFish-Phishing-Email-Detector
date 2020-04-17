@@ -20,23 +20,26 @@ function checkEmail(event) {
   */
 
   chrome.storage.local.get(['body'], function (items) {
-    console.log(items.body);
+    console.log("item body is: ", items.body);
 
     // get the links from the body message using regex
-    let foundLinks = items.body.match(/(https?:\/\/[^\s]+)/gi);
-    console.log(foundLinks);
+    let foundLinks = items.body.match(/("?https?:\/\/[^\s]+)/gi);
+    console.log("founs linkss",foundLinks);
 
     if (foundLinks != null) {
       let url_entries = [];
       for (let i = 0; i < foundLinks.length; i++) {
         url_entries.push({"url": foundLinks[i]});
       }
-      console.log(url_entries);
+      console.log("url_entries is ", url_entries);
       check_links(url_entries);
       check_spelling(items.body);
       //get_badLinks();
     }
   });
+
+  chrome.storage.local.set({"check_button_clicked": true});
+  chrome.browserAction.setPopup({popup: "email_analysis.html"});
 }
 
 
@@ -107,6 +110,7 @@ function get_badLinks() {
 
 function check_spelling(body) {
 
+  console.log("INSIDE CHECK SPELLING FNvand the body is ", body);
   const spellCheckUrl = 'https://efish.cognitiveservices.azure.com/bing/v7.0/spellcheck?text=' + body;
   const spelling_key = '8858777b084a4fee9cb3b3b6291b32dd';
 
@@ -130,6 +134,7 @@ function check_spelling(body) {
     })
     .then (json => {
       console.log("spell json is", json);
+
       chrome.storage.local.set({"spell_errors_num": json.flaggedTokens.length});
 
       let spell_error_array = []
@@ -142,8 +147,6 @@ function check_spelling(body) {
       /*chrome.storage.local.get(["spell_error_array"], function (items) {
         console.log("spell arrayyy", items.spell_error_array);
       }); */
-      
-      
 
       /*chrome.storage.local.get(["spell_errors_num"], function(items) {
         console.log("spell nummmm", items.spell_errors_num);
@@ -155,39 +158,28 @@ function check_spelling(body) {
 const senderCheckURL = 'https://emailrep.io/';
 const senderCheckKey = 'r0nyywijgoh29vs7ihamzysjcyufx3w5qpzmt7glbviiq0id';
 function check_sender(sender) {
-  /*let request = senderCheckURL.concat(sender);
+
+  const test_request = 'https://cors-anywhere.herokuapp.com/https://emailrep.io/';
+
+  let request = test_request.concat("mimitran1305@gmail.com");
   let options = {
     "method": 'GET',
-    //"mode": "cors",
-    "headers": {
-      'Origin': senderCheckURL
-    }
+    headers : { 
+     // "ContentType": "application/x-www-form-urlencoded",
+     // "ContentType": "application/json",
+      'Accept': 'application/json'
+     }
   }
 
   fetch(request, options) 
     .then (res => {
       console.log("email rep are ");
       console.log(res);
-      return res.json();
+      return res.text();
     })
     .then (json => {
-      console.log(JSON.stringify(json));
-    })*/
-    
-    /*let data = null;
-
-    let xhr = new XMLHttpRequest();
-    xhr.withCredentials = true;
-
-    xhr.addEventListener("readystatechange", function () {
-      if (this.readyState === this.DONE) {
-        console.log(this.responseText);
-      }
-    });
-
-    xhr.open("GET", "https://emailrep.io/mimitran1305@gmail.com");
-
-    xhr.send(data);*/
+      console.log("email rep json is ", json);
+    })
 
 }
 
